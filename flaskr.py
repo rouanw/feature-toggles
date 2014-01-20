@@ -14,6 +14,9 @@ from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
 
+class Feature:
+    def is_enabled(self, feature_name):
+        return app.config['features'][feature_name]
 
 # create our little application :)
 app = Flask(__name__)
@@ -28,7 +31,7 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
-app.config['rain'] = True
+app.config['features'] =  {'PENGUIN_INVASION': True }
 
 def connect_db():
     """Connects to the specific database."""
@@ -67,7 +70,8 @@ def show_entries():
     db = get_db()
     cur = db.execute('select title, text from entries order by id desc')
     entries = cur.fetchall()
-    return render_template('show_entries.html', entries=entries, app=app)
+    show_penguin = Feature().is_enabled("PENGUIN_INVASION")
+    return render_template('show_entries.html', entries=entries, show_penguin=show_penguin)
 
 
 @app.route('/add', methods=['POST'])

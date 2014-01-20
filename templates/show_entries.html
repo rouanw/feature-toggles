@@ -11,6 +11,11 @@
       </dl>
     </form>
   {% endif %}
+
+  {% if app.config["rain"] %}
+    <img src="http://openclipart.org/image/800px/svg_to_png/189837/rain_penguin.png"/>
+  {% endif %}
+
   <ul class=entries>
   {% for entry in entries %}
     <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}

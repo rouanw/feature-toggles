@@ -28,6 +28,7 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
+app.config['rain'] = True
 
 def connect_db():
     """Connects to the specific database."""
@@ -66,7 +67,7 @@ def show_entries():
     db = get_db()
     cur = db.execute('select title, text from entries order by id desc')
     entries = cur.fetchall()
-    return render_template('show_entries.html', entries=entries)
+    return render_template('show_entries.html', entries=entries, app=app)
 
 
 @app.route('/add', methods=['POST'])

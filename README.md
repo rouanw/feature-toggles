@@ -6,9 +6,10 @@ It adds a simple feature toggling framework to the Flaskr demo of the Flask micr
 
 ## How to run it?
 
-You need python and virtualenv installed.
+You need python, pip and virtualenv installed.
 	
       $ source env/bin/activate
+      $ pip install -r requirements.pip
       $ python flaskr.py
 
 This will run the app on http://localhost:5000/

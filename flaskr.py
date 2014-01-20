@@ -13,10 +13,7 @@
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
-
-class Feature:
-    def is_enabled(self, feature_name):
-        return app.config['features'][feature_name]
+from feature import Feature
 
 # create our little application :)
 app = Flask(__name__)
@@ -70,7 +67,7 @@ def show_entries():
     db = get_db()
     cur = db.execute('select title, text from entries order by id desc')
     entries = cur.fetchall()
-    show_penguin = Feature().is_enabled("PENGUIN_INVASION")
+    show_penguin = Feature(app).is_enabled("PENGUIN_INVASION")
     return render_template('show_entries.html', entries=entries, show_penguin=show_penguin)
 
 

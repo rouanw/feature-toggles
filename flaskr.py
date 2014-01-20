@@ -28,8 +28,6 @@ app.config.update(dict(
 ))
 app.config.from_envvar('FLASKR_SETTINGS', silent=True)
 
-app.config['features'] =  {'PENGUIN_INVASION': True }
-
 def connect_db():
     """Connects to the specific database."""
     rv = sqlite3.connect(app.config['DATABASE'])
@@ -67,7 +65,7 @@ def show_entries():
     db = get_db()
     cur = db.execute('select title, text from entries order by id desc')
     entries = cur.fetchall()
-    show_penguin = Feature(app).is_enabled("PENGUIN_INVASION")
+    show_penguin = Feature().is_enabled("PENGUIN_INVASION")
     return render_template('show_entries.html', entries=entries, show_penguin=show_penguin)
 
 
